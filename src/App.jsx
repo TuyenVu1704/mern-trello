@@ -1,14 +1,16 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import Button from "@mui/material/Button";
+
 import {
-  Experimental_CssVarsProvider as CssVarsProvider,
-  experimental_extendTheme as extendTheme,
   useColorScheme,
 } from '@mui/material/styles';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import Box from '@mui/material/Box';
+import  FormControl  from '@mui/material/FormControl';
+import  InputLabel  from '@mui/material/InputLabel';
+import  Select  from '@mui/material/Select';
+import  MenuItem  from '@mui/material/MenuItem';
+import  Container  from '@mui/material/Container';
 function ModeSelectTheme() {
   const { mode, setMode } = useColorScheme();
   const handleChange = (event) => {
@@ -33,8 +35,8 @@ function ModeSelectTheme() {
             alignItems: 'center', 
             gap: 1
             }
-             }> 
-           <LightModeIcon/> Light
+            }> 
+            <LightModeIcon/> Light
           </Box> 
         </MenuItem>
         <MenuItem value={'dark'}> 
@@ -55,7 +57,7 @@ function ModeSelectTheme() {
             alignItems: 'center', 
             gap: 1
             }
-         }> 
+          }> 
         <SettingsBrightnessIcon/> System
           </Box> 
         </MenuItem>
@@ -64,29 +66,52 @@ function ModeSelectTheme() {
   );
 }
 
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme();
-  return (
-    <Button
-      onClick={() => {
-        setMode(mode === 'light' ? 'dark' : 'light');
-      }}
-    >
-      {mode === 'light' ? 'Turn dark' : 'Turn light'}
-    </Button>
-  );
-}
 
 function App() {
   return (
-    <>
-      <ModeSelectTheme/>
-        <hr/>
-      <ModeToggle />
-        <hr></hr>
+    <Container 
+      disableGutters
+      maxWidth={false}
+      sx={{ 
+        height: '100vh',
+       
+        }}>
+        <Box 
+          sx={{
+            backgroundColor: 'primary.light',
+            width: '100%',
+            height: (theme) => theme.trello.appBarHeight ,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+          <ModeSelectTheme/>
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: 'primary.dark',
+            width: '100%',
+            height: (theme) => theme.trello.boardBarHeight ,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
 
-      <Button variant="contained">Hello world</Button>
-    </>
+          Board Bar
+          
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: 'primary.main',
+            width: '100%',
+            height: (theme) => `calc(100vh - ${theme.trello.appBarHeight} - ${theme.trello.boardBarHeight})`,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          Board Content
+        </Box>
+      
+    </Container>
   );
 }
 
